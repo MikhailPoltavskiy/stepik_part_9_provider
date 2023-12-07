@@ -31,18 +31,18 @@ class PageWithSquare extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ChangeColor state = ChangeColor(ChangeColor);
+    ChangeColor changeColor = ChangeColor(ChangeColorState());
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: ListenableBuilder(
-          listenable: state,
+          listenable: changeColor,
           builder: (BuildContext context, Widget? child) {
             return Text(
               'Homework Provider',
               style: TextStyle(
-                color: Color(state.colorTitleAppBar),
+                color: Color(changeColor.value.colorTitleAppBar),
               ),
             );
           },
@@ -53,7 +53,7 @@ class PageWithSquare extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ListenableBuilder(
-              listenable: state,
+              listenable: changeColor,
               builder: (BuildContext context, Widget? child) {
                 return AnimatedContainer(
                   height: 200,
@@ -62,7 +62,7 @@ class PageWithSquare extends StatelessWidget {
                     milliseconds: 500,
                   ),
                   color: Color(
-                    state.colorSquare,
+                    changeColor.value.colorSquare,
                   ),
                 );
               },
@@ -70,13 +70,13 @@ class PageWithSquare extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            ListenableBuilder(
-              listenable: state,
-              builder: (BuildContext context, Widget? child) {
+            ValueListenableBuilder(
+              valueListenable: changeColor,
+              builder: (BuildContext context, value, Widget? child) {
                 return Switch(
-                  value: state.valueSwitch,
+                  value: changeColor.value.valueSwitch,
                   onChanged: (_) {
-                    state.changeColor();
+                    changeColor.changeColor();
                   },
                 );
               },

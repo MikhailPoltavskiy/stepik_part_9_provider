@@ -2,23 +2,23 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-class ChangeColor extends ValueNotifier with ChangeColorState {
+class ChangeColor extends ValueNotifier<ChangeColorState> {
   ChangeColor(super.value);
 
   void changeColor() {
-    _value = !_value;
-    _colorOne = _getRandomInt();
-    _colorTwo = _getRandomInt();
+    value._valueSwitch = !value._valueSwitch;
+    value._colorOne = _getRandomInt();
+    value._colorTwo = _getRandomInt();
     notifyListeners();
   }
 }
 
-mixin ChangeColorState {
-  bool _value = true;
+class ChangeColorState {
+  bool _valueSwitch = true;
   int _colorOne = _getRandomInt();
   int _colorTwo = _getRandomInt();
 
-  bool get valueSwitch => _value;
+  bool get valueSwitch => _valueSwitch;
   int get colorSquare => _colorOne;
   int get colorTitleAppBar => _colorTwo;
 }
