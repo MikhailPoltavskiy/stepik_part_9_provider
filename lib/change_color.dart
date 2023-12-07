@@ -2,10 +2,12 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-class ChangeColor with ChangeNotifier {
+class ChangeColor extends ValueNotifier {
   bool _value = true;
   int _colorOne = _getRandomInt();
   int _colorTwo = _getRandomInt();
+
+  ChangeColor(super.value);
 
   bool get valueSwitch => _value;
   int get colorSquare => _colorOne;
