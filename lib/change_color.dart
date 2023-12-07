@@ -2,7 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-class ChangeColor extends ChangeNotifier {
+class ChangeColor with ChangeNotifier {
   bool _value = true;
   int _colorOne = _getRandomInt();
   int _colorTwo = _getRandomInt();
