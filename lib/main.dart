@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:stepik_part_9_provider/change_color.dart';
@@ -70,20 +73,33 @@ class PageWithSquare extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            ValueListenableBuilder(
-              valueListenable: changeColor,
-              builder: (BuildContext context, value, Widget? child) {
-                return Switch(
-                  value: changeColor.value.valueSwitch,
-                  onChanged: (_) {
-                    changeColor.changeColor();
-                  },
-                );
-              },
-            ),
+            _Switch(changeColor: changeColor),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _Switch extends StatelessWidget {
+  const _Switch({
+    required this.changeColor,
+  });
+
+  final ChangeColor changeColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: changeColor,
+      builder: (BuildContext context, value, Widget? child) {
+        return Switch(
+          value: changeColor.value.valueSwitch,
+          onChanged: (_) {
+            changeColor.changeColor();
+          },
+        );
+      },
     );
   }
 }
