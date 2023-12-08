@@ -19,7 +19,7 @@ class ChangeColorState {
   int _colorTwo = _getRandomInt();
 
   bool get valueSwitch => _valueSwitch;
-  int get colorSquare => _colorOne;
+  int get squareColor => _colorOne;
   int get colorTitleAppBar => _colorTwo;
 }
 

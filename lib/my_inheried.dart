@@ -9,10 +9,11 @@ class MyInheritedWidget extends InheritedWidget {
 
   @override
   bool updateShouldNotify(MyInheritedWidget oldWidget) {
-    return (myState.value.colorTitleAppBar !=
-            oldWidget.myState.value.colorTitleAppBar ||
-        myState.value.colorSquare != oldWidget.myState.value.colorSquare ||
-        myState.value.valueSwitch != oldWidget.myState.value.valueSwitch);
+    return false;
+    // return (myState.value.colorTitleAppBar !=
+    //         oldWidget.myState.value.colorTitleAppBar ||
+    //     myState.value.squareColor != oldWidget.myState.value.squareColor ||
+    //     myState.value.valueSwitch != oldWidget.myState.value.valueSwitch);
   }
 
   static MyInheritedWidget? of(BuildContext context) {
