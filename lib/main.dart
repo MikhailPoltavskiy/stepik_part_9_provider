@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:stepik_part_9_provider/change_color.dart';
-import 'package:stepik_part_9_provider/custom_provider.dart';
+// import 'package:stepik_part_9_provider/custom_provider.dart';
+import 'package:stepik_part_9_provider/my_inheried.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,12 +23,17 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: CustomChangeNotifierProvider(
-        model: ChangeColor(
-          ChangeColorState(),
-        ),
-        child: const PageWithSquare(),
-      ),
+      // home: CustomChangeNotifierProvider(
+      //   model: ChangeColor(
+      //     ChangeColorState(),
+      //   ),
+      //   child: const PageWithSquare(),
+      // ),
+      home: MyInheritedWidget(
+          myState: ChangeColor(
+            ChangeColorState(),
+          ),
+          child: const PageWithSquare()),
     );
   }
 }
@@ -37,7 +43,8 @@ class PageWithSquare extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var changeColor = CustomChangeNotifierProvider.read<ChangeColor>(context);
+    var changeColor = MyInheritedWidget.of(context)?.myState;
+    // var changeColor = CustomChangeNotifierProvider.read<ChangeColor>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -88,8 +95,9 @@ class _Switch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var newChangeColor =
-        CustomChangeNotifierProvider.watch<ChangeColor>(context);
+    var newChangeColor = MyInheritedWidget.of(context)?.myState;
+    // var newChangeColor =
+    //     CustomChangeNotifierProvider.watch<ChangeColor>(context);
     return ValueListenableBuilder(
       valueListenable: newChangeColor!,
       builder: (BuildContext context, value, Widget? child) {
