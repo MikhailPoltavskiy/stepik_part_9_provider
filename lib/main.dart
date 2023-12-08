@@ -23,8 +23,11 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: CustomChangeNotifierProvider(
-          model: ChangeColor(ChangeColorState()),
-          child: const PageWithSquare()),
+        model: ChangeColor(
+          ChangeColorState(),
+        ),
+        child: const PageWithSquare(),
+      ),
     );
   }
 }
