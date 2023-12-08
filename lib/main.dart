@@ -1,9 +1,7 @@
-import 'dart:developer';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:stepik_part_9_provider/change_color.dart';
+import 'package:stepik_part_9_provider/custom_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +22,9 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const PageWithSquare(),
+      home: CustomChangeNotifierProvider(
+          model: ChangeColor(ChangeColorState()),
+          child: const PageWithSquare()),
     );
   }
 }
@@ -34,13 +34,12 @@ class PageWithSquare extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ChangeColor changeColor = ChangeColor(ChangeColorState());
-
+    var changeColor = CustomChangeNotifierProvider.read<ChangeColor>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: ListenableBuilder(
-          listenable: changeColor,
+          listenable: changeColor!,
           builder: (BuildContext context, Widget? child) {
             return Text(
               'Homework Provider',
@@ -73,7 +72,7 @@ class PageWithSquare extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            _Switch(changeColor: changeColor),
+            const _Switch(),
           ],
         ),
       ),
@@ -82,21 +81,19 @@ class PageWithSquare extends StatelessWidget {
 }
 
 class _Switch extends StatelessWidget {
-  const _Switch({
-    required this.changeColor,
-  });
-
-  final ChangeColor changeColor;
+  const _Switch();
 
   @override
   Widget build(BuildContext context) {
+    var newChangeColor =
+        CustomChangeNotifierProvider.watch<ChangeColor>(context);
     return ValueListenableBuilder(
-      valueListenable: changeColor,
+      valueListenable: newChangeColor!,
       builder: (BuildContext context, value, Widget? child) {
         return Switch(
-          value: changeColor.value.valueSwitch,
+          value: newChangeColor.value.valueSwitch,
           onChanged: (_) {
-            changeColor.changeColor();
+            newChangeColor.changeColor();
           },
         );
       },
