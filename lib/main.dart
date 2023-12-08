@@ -118,30 +118,66 @@ class _AnimatedSquare extends StatelessWidget {
     // My custom provider (not needed provider package)
     // var squareColor = CustomChangeNotifierProvider.read<ChangeColor>(context);
 
-    // return SizedBox.square(
-    //   dimension: 200,
-    //   child: AnimatedCrossFade(
-    //     firstChild: firstChild,
-    //     secondChild: secondChild,
-    //     crossFadeState: crossFadeState,
-    //     duration: duration,
-    //   ),
-    // );
-
     return ListenableBuilder(
       listenable: squareColor!,
       builder: (BuildContext context, Widget? child) {
-        return AnimatedContainer(
-          height: 200,
-          width: 200,
-          duration: const Duration(
-            milliseconds: 500,
+        return AnimatedCrossFade(
+          firstChild: _Square(
+            squareColor: squareColor.value.squareColor,
+            text: 'firstChild',
           ),
-          color: Color(
-            squareColor.value.squareColor,
+          secondChild: _Square(
+            squareColor: squareColor.value.squareColor,
+            text: 'secondChild',
           ),
+          crossFadeState: squareColor.value.valueSwitch
+              ? CrossFadeState.showFirst
+              : CrossFadeState.showSecond,
+          duration: const Duration(seconds: 2),
         );
       },
+    );
+
+    // return ListenableBuilder(
+    //   listenable: squareColor!,
+    //   builder: (BuildContext context, Widget? child) {
+    // return AnimatedContainer(
+    //       height: 200,
+    //       width: 200,
+    //       duration: const Duration(
+    //         seconds: 2,
+    //       ),
+    //       color: Color(
+    //         squareColor.value.squareColor,
+    //       ),
+    //     );
+    //   },
+    // );
+  }
+}
+
+class _Square extends StatelessWidget {
+  const _Square({
+    required this.squareColor,
+    required this.text,
+  });
+
+  final int squareColor;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: AlignmentDirectional.center,
+      children: [
+        ColoredBox(
+          color: Color(squareColor),
+          child: const SizedBox.square(
+            dimension: 200,
+          ),
+        ),
+        Text(text),
+      ],
     );
   }
 }
